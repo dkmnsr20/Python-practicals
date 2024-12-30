@@ -1,0 +1,221 @@
+
+1. Program to find the roots of a quadratic equation:
+-----------------------------------------------------
+import math
+
+def quadratic_roots(a, b, c):
+    discriminant = b**2 - 4*a*c
+    if discriminant > 0:
+        root1 = (-b + math.sqrt(discriminant)) / (2*a)
+        root2 = (-b - math.sqrt(discriminant)) / (2*a)
+        return f"Roots are real and distinct: {root1}, {root2}"
+    elif discriminant == 0:
+        root = -b / (2*a)
+        return f"Roots are real and equal: {root}"
+    else:
+        return "Roots are complex"
+
+print(quadratic_roots(1, -7, 12))
+
+
+2. Prime number check and generate first `n` primes:
+-----------------------------------------------------
+a. Check if a number is prime:
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+print(is_prime(29))
+
+b. Generate first `n` prime numbers:
+def generate_primes(n):
+    primes = []
+    num = 2
+    while len(primes) < n:
+        if is_prime(num):
+            primes.append(num)
+        num += 1
+    return primes
+
+print(generate_primes(10))
+
+
+3. Pyramid and reverse pyramid:
+-------------------------------
+def pyramid(n):
+    for i in range(1, n+1):
+        print('*' * i)
+    for i in range(n-1, 0, -1):
+        print('*' * i)
+
+pyramid(5)
+
+
+4. Character operations:
+-------------------------
+def char_operations(char):
+    if char.isalpha():
+        print(f"'{char}' is a letter.")
+        if char.isupper():
+            print("It is uppercase.")
+        else:
+            print("It is lowercase.")
+    elif char.isdigit():
+        print(f"'{char}' is a digit. Its name is {int(char)}.")
+    else:
+        print(f"'{char}' is a special character.")
+
+char_operations('A')
+char_operations('9')
+char_operations('#')
+
+
+5. String operations:
+----------------------
+a. Frequency of a character:
+def char_frequency(s, char):
+    return s.count(char)
+
+print(char_frequency("hello world", "l"))
+
+b. Replace a character:
+def replace_char(s, old, new):
+    return s.replace(old, new)
+
+print(replace_char("hello world", "l", "x"))
+
+c. Remove first occurrence:
+def remove_first_occurrence(s, char):
+    return s.replace(char, "", 1)
+
+print(remove_first_occurrence("hello world", "l"))
+
+d. Remove all occurrences:
+def remove_all_occurrences(s, char):
+    return s.replace(char, "")
+
+print(remove_all_occurrences("hello world", "l"))
+
+
+6. Swap first `n` characters of two strings:
+--------------------------------------------
+def swap_first_n(s1, s2, n):
+    return s2[:n] + s1[n:], s1[:n] + s2[n:]
+
+print(swap_first_n("hello", "world", 3))
+
+
+7. Find indices of a substring:
+--------------------------------
+def find_substring_indices(s1, s2):
+    indices = [i for i in range(len(s1)) if s1.startswith(s2, i)]
+    return indices if indices else -1
+
+print(find_substring_indices("hellohello", "lo"))
+
+
+8. Cubes of even integers:
+--------------------------
+a. Using a for loop:
+def cubes_of_evens(nums):
+    result = []
+    for num in nums:
+        if num % 2 == 0:
+            result.append(num**3)
+    return result
+
+print(cubes_of_evens([1, 2, 3, 4, 5]))
+
+b. Using list comprehension:
+def cubes_of_evens_lc(nums):
+    return [num**3 for num in nums if num % 2 == 0]
+
+print(cubes_of_evens_lc([1, 2, 3, 4, 5]))
+
+
+9. File operations:
+--------------------
+def file_operations():
+    with open("input.txt", "r") as file:
+        data = file.read()
+        print(f"Characters: {len(data)}")
+        print(f"Words: {len(data.split())}")
+        print(f"Lines: {len(data.splitlines())}")
+        
+        char_freq = {char: data.count(char) for char in set(data)}
+        print("Character Frequencies:", char_freq)
+
+    with open("input.txt", "r") as file, open("File1.txt", "w") as f1, open("File2.txt", "w") as f2:
+        for i, line in enumerate(file, 1):
+            if i % 2 == 0:
+                f1.write(line)
+            else:
+                f2.write(line)
+
+file_operations()
+
+
+10. Class `Point`:
+-------------------
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return f"Point({self.x}, {self.y})"
+
+    def distance(self, other):
+        return ((self.x - other.x)**2 + (self.y - other.y)**2)**0.5
+
+p1 = Point(3, 4)
+p2 = Point(0, 0)
+print(p1)
+print(p2)
+print("Distance:", p1.distance(p2))
+
+
+11. Dictionary with cubes:
+---------------------------
+def cube_dict():
+    return {i: i**3 for i in range(1, 6)}
+
+print(cube_dict())
+
+
+12. Tuple operations:
+----------------------
+t1 = (1, 2, 5, 7, 9, 2, 4, 6, 8, 10)
+
+# a. Print half values in two lines
+print(t1[:len(t1)//2])
+print(t1[len(t1)//2:])
+
+# b. Print even numbers
+print(tuple(i for i in t1 if i % 2 == 0))
+
+# c. Concatenate tuple
+t2 = (11, 13, 15)
+print(t1 + t2)
+
+# d. Min and max
+print("Min:", min(t1))
+print("Max:", max(t1))
+
+
+13. Validate name input:
+-------------------------
+def validate_name(name):
+    if any(char.isdigit() or not char.isalnum() and char != " " for char in name):
+        raise ValueError("Name contains invalid characters.")
+    print("Valid name:", name)
+
+try:
+    validate_name("John Doe")
+    validate_name("John123")
+except ValueError as e:
+    print(e)
